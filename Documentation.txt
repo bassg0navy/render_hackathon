@@ -1,0 +1,18 @@
+This file is only used for documenting our progress through this event! 
+Feel free to document what you have put in this project. 
+--------------------------------------------------------------------
+Objective:
+
+Focused Problem: MARTA Transportation
+
+Plan: Making a functional Chatbot with transportation issues.  
+-------------------------------------------------------------------
+Roles:
+Ken - working on Python coding and basic routes
+Erika - Figuring out how to connect Bus Schedules and URLs 
+Jesse - Working on webpage. 
+Ato -
+Yahkeef - 
+
+
+Documenting: 
