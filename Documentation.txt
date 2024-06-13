@@ -16,3 +16,7 @@ Yahkeef -
 
 
 Documenting: 
+J.R. (6/13/2024): Ken, Erika and I have finally met and working on the hackathon project! 
+We discuss what we are going for with this project. Our focus is having a chatbot into MARTA (Atlanta's well-trended transportation). We shared stories
+about MARTA's biggest issue and that is confusion. Confusion of time, what happened, what line to take, etc. We want our chatbot to communicate with 
+consumers and give solutions to those problems. We have brainstormed and now into development phase.
