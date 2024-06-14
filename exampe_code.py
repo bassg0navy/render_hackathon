@@ -1,4 +1,5 @@
 from pyexpat.errors import messages
+from sched import Event
 import requests
 from .api import MARTA
 import openai
@@ -8,7 +9,6 @@ from google.transit import gtfs_realtime_pb2
 MARTA_API_KEY = '3db0ab30-d7a8-4b08-9a0e-9b153e51de2a'
 OPENAI_API_KEY = 'your_openai_api_key'
 base_url = 'http://developer.itsmarta.com'
-#CACHE_EXPIRE = int(getenv('MARTA_CACHE_EXPIRE', 30))
 TRAIN_PATH = '/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals'
 MARTA_GTFS_REALTIME_URL = 'https://gtfs-rt.itsmarta.com/TMGTFSRealTimeWebService/tripupdate'
 
@@ -50,24 +50,29 @@ def martatrain_to_chatgpt(TRAIN_PATH, **kwergs):
 # Function to interact with ChatGPT API
 def chatgpt_interaction(marta_train_data):
     #for loop to extract value from key value pairs
-    train_data = marta_train_data.keys();
+    for field in marta_train_data:
+        destination = field["DESTINATION"],
+        direction = field["DIRECTION"],
+        event_time = field["EVENT_TIME"],
+        line = field["LINE"],
+        next_arrival = field["NEXT_ARR"],
+        station = field["STATION"],
+        train_id = field["TRAIN_ID"],
+        waiting_seconds = field["WAITING_SECONDS"],
+        waiting_time = field["WAITING_TIME"]
+        
+    train_data = [(f"Destination: {destination}", f"Direction: {direction}", f"Event_Time: {event_time}"), f"Line:{line}", f"Next_Arrival:{next_arrival}", f"Station:{station}", f"Train_ID:{train_id}", f"Waiting_Seconds:{waiting_seconds}", f"Wating_Time:{waiting_time}"]
+    
+    return train_data
+
     
     openai.api_key = OPENAI_API_KEY
     response = openai.Completion.create(
         engine="gpt-3.5-turbo", 
         messages=[
-            {"role":"system", "content":""},
-            {"role":"system", "content":""},
-            {"role":"system", "content":""}
+            {"role":"system", "content":{train_data}},
+            {"role":"user", "content":""}
             ],
         max_tokens=150  # Adjust as necessary
     )
     return response.choices[0].text.strip()
-
-
-# Example usage
-if __name__ == '__main__':
-    endpoint = 'your_endpoint_here'  # e.g., 'buses'
-    params = {'route': '100'}  # Example parameters
-    response = marta_to_chatgpt(endpoint, params)
-    print(response)
